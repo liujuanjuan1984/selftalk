@@ -5,8 +5,14 @@ from quorum_data_py import FeedData as feed
 from quorum_mininode_py import MiniNode
 
 
-class SelfTalk:
+class NoodlesTalk:
     def __init__(self, seedurl: str, datadir: str):
+        """
+        init two new account for a selftalk.
+        each message is sent to rum group as a trx.
+        that is, each message is a post;
+        and each talk contains many posts(trxs).
+        """
         # init two new account for selftalk
         self.talker_a = MiniNode(seedurl)
         self.talker_b = MiniNode(seedurl)
@@ -43,7 +49,7 @@ class SelfTalk:
                 try:
                     post = feed.new_post(content=content, post_id=f"{topic}_{i}")
                     talkers[talker].api.post_content(post)
-                    f.write(f"{talker}:\n{content}\n\n")
+                    f.write(f"{talker}:\t{content}\n\n")
                 except Exception as err:
                     print(err)
                     flag = False
